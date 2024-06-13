@@ -6,9 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "ShooterPlayerController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class SIMPLESHOOTER_API AShooterPlayerController : public APlayerController
 {

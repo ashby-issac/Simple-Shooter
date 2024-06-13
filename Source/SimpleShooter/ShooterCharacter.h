@@ -40,7 +40,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float RotationRate = 10;
 	UPROPERTY(EditDefaultsOnly)
-	float MaxHealth = 100;
+	float MaxHealth = 40;
 
 	UPROPERTY(VisibleAnywhere)
 	float Health;

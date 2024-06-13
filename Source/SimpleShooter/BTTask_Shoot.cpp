@@ -14,6 +14,11 @@ EBTNodeResult::Type UBTTask_Shoot::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+	if (!PlayerPawn)
+	{
+		return EBTNodeResult::Failed;
+	}
+
 	auto Dist = FVector::Dist(PlayerPawn->GetActorLocation(), OwnerComp.GetAIOwner()->GetPawn()->GetActorLocation());
 	//UE_LOG(LogTemp, Error, TEXT("DIST: %f"), Dist);
 

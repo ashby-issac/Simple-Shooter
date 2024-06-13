@@ -17,7 +17,7 @@ void AShooterCharacter::BeginPlay()
 	Health = MaxHealth;
 
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
-	GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+	// GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
 	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("WeaponSocket"));
 	Gun->SetOwner(this);
 }
@@ -43,11 +43,10 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &AShooterCharacter::MoveForward);
-	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &AShooterCharacter::MoveRight);
-	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis(TEXT("LookUpRate"), this, &AShooterCharacter::LookUpRate);
 	PlayerInputComponent->BindAxis(TEXT("LookRightRate"), this, &AShooterCharacter::LookRightRate);
+	
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("Shoot"), EInputEvent::IE_Pressed, this, &AShooterCharacter::Shoot);
 }
@@ -58,8 +57,7 @@ float AShooterCharacter::TakeDamage(float DamageAmount, struct FDamageEvent cons
 	DamageToApply = FMath::Min(Health, DamageToApply);
 
 	Health -= DamageToApply;
-	if (!Cast<APlayerController>(EventInstigator))
-		Health = MaxHealth;
+	UE_LOG(LogTemp, Warning, TEXT(":: Health: %f :: DamageToApply: %f"), Health, DamageToApply);
 
 	if (IsDead())
 	{
